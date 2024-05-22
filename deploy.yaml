@@ -18,7 +18,7 @@ spec:
         app: grayround
     spec:
       containers:
-      - image: haeunmoon/grayround:master
+      - image: haeunmoon/grayround:v2.0
         name: grayround
         ports:
         - containerPort: 80
