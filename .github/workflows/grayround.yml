@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Get current date
         id: get_date
-        with:
-          format: "%Y%m%d"
+        run: |
+          echo $(date +"%Y-%m-%d")
           
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
         with:
           images: haeunmoon/grayround
           tag-semver: |
-            {{version}}
+            {{ steps.get_date.outputs.date }}
             {{major}}.{{minor}}
 
       - name: Set up QEMU
@@ -47,5 +47,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.get_date.outputs.formatted_date }}
+          tags: haeunmoon/grayround:{{ steps.get_date.outputs.date }}
           labels: ${{ steps.docker_meta.outputs.labels }}
